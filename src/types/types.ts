@@ -18,3 +18,27 @@ export type city={
     postcodes: Array<number>,
     timezone:string
 }
+
+export type card={
+    city:string,
+    n:number,
+    w:number,
+    temp:tempCar
+}
+
+export type tempCar=Array<{day:string,temp:number}>
+
+export type temp={
+    elevation: number,
+    generationtime_ms:number,
+    hourly: { time:Array<string>, temperature_2m: Array<number> },
+​    hourly_units: { time: string, temperature_2m: string },
+    latitude:number,
+    longitude: number,
+    ​timezone: string,
+​   timezone_abbreviation:string,
+​   utc_offset_seconds:number
+}
+
+
+
