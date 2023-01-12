@@ -7,11 +7,7 @@ import HomePage from './pages/home/Home';
 
 const App: FunctionComponent = () => {
   return (
-    <div className="App">
-      <header className="App-header">
         <HomePage/>
-      </header>
-    </div>
   );
 }
 
