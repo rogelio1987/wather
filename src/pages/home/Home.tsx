@@ -11,6 +11,7 @@ import '../../fonts/weather-icons-master/css/weather-icons.css'
 
 const HomePage: FunctionComponent = () => {
 
+
     //varibles
     const [citiName,setcitiName]=useState<string>("") //valor delinput 
     const [cities,setCities]=useState<Array<city>>([])  //arreglo de ciudades disponibles segun se vas scribindo
@@ -26,12 +27,12 @@ const HomePage: FunctionComponent = () => {
     //var con el areglo de tarjetas creaas
     const[arrayTarjeta,setarrayTarjeta]=useState<Array<{temps:Array<temp>, city:string, n:number,w:number}>>([])
 
-    //para buscar istado de ciudades disonibles a partir de la escrita
+    //para actualizar lalista
     useEffect(() => {
-        loadCitys()
-    }, [citiName])
-    
-  
+      let tptemp=citiesList
+      setCitiesList(tptemp)
+      }, [citiesList]);
+
     //FUNCION PARA CARGAR LAS CIUADADES QUE SE VAN TECLEANDO
     async function loadCitys(){
        if(citiName.length>0){
@@ -44,16 +45,24 @@ const HomePage: FunctionComponent = () => {
    //agegar cda ciudad de la tarjeta a la lista
    function saveCard(){
     let citemp:Array<city>=citiesList
-    if(cityselect){
+    if(cityselect && citiName!=""){
         citemp.push(cityselect)
     }
     setCitiesList(citemp)
+   setcitiName("")
    }
 
-    function removeCaed(){
-        let cititemp:Array<city>=citiesList
-        // cititemp.sl
+   //eliminar una tarjeta
+    function removeCaed(pos:number){
+        let cititemp:Array<city>=[];
+        if(citiesList.length>0){
+            citiesList.splice(pos, 1); 
+            cititemp=citiesList;
+        }
         setCitiesList(cititemp)
+        setcitiName("")
+   
+        
     }
 
 
@@ -76,7 +85,10 @@ const HomePage: FunctionComponent = () => {
             <div className='search'>
                 <div className='searchConten'>
                     <div className='input'> 
-                        <input placeholder='Enter a city name' value={citiName} onChange={(event=>{setcitiName(onTextChange(event))})} />
+                        <input placeholder='Enter a city name' value={citiName} onChange={(event=>{
+                            setcitiName(onTextChange(event))
+                            loadCitys();
+                            })} />
                         <div className='citysContainer' style={{marginTop:"0.5rem"}}>
                 {
                     cities?.map((ci,i)=>{
@@ -105,25 +117,25 @@ const HomePage: FunctionComponent = () => {
             <div className='divider'></div> 
             </div> 
             <div>
-                {
-                   citiesList.length>0 && (
+                
                     <div className='cardContainer' >
                         {
                             citiesList.map((ci,i)=>{
                                 return(
-                                    <CardWather carvValue={ci} grade={gradosF ? 'F' : "C"}  key={i} />
+                                    <CardWather carvValue={ci} grade={gradosF ? 'F' : "C"}  key={i} setAtion={()=>{
+                                        removeCaed(i)
+                                    }}/>
                                 )
                             })
                         }
                     </div>
-                   )
-                }
+                  
                 {
                     citiesList.length==0 &&(
                         <div className='cardContainer' style={{justifyContent:'center',display:'flex',flexDirection:'row',}} >
-                            <div className='col' style={{color:"#808080",fontSize:100}}>
-                                <i className="wi wi-day-cloudy" ></i>
-                             <p style={{fontSize:20}}></p>
+                            <div className='row' style={{color:"#9FAAAE",fontSize:50}}>
+                                <div style={{fontSize:100}}> <i className="wi wi-day-cloudy" ></i></div>
+                                <h6 style={{marginLeft:"2rem"}}>Submit a city to fill up this space</h6>
                             </div>
                          </div>
                     )

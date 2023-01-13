@@ -12,6 +12,7 @@
     flex-direction: row;
     color: #fff;
     font-size: 13px;
+    align-items:center;
 }
 .col{
     display: flex;
@@ -27,6 +28,11 @@
     margin-left: 5%;
     font-size: 20;
     justify-content: space-between;
+}
+
+.delete{
+    border: none;
+    width: 3rem; 
 }
 
 
