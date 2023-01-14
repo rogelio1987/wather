@@ -12,7 +12,7 @@ import { fahToCelcius, iconTrash } from '../../funtionsAux/functions';
 export interface clima {
     carvValue:city
     grade:string,
-    setAtion:()=>void
+    setAtion:(id:number)=>void
   }
 
  
@@ -94,10 +94,9 @@ async function loadCity(data:temp) {
 
         return(
             <div>
-                    {
-                        show &&(
-                            <div className="card" style={{background:color}}>
-                            <div className='row' style={{marginTop:"1rem",height:"5rem"}}>
+                  
+                            <div className="card" style={{background:color,marginTop:"10rem"}}>
+                            <div className='row' style={{height:"5rem"}}>
                                   <div className='col' style={{width:"45%",fontSize:50,color:tempertureStble<30?"#8ECAE6":"#FB8500"}}>
                                     <div style={{marginLeft:"1rem"}}>
                                             {
@@ -118,7 +117,7 @@ async function loadCity(data:temp) {
                                     <div className='row'>{car?.n.toFixed(4)+"°N ,"+car?.w.toFixed(4)+"°W"}</div>
                                   </div>
                             </div>
-                            <div className='row'>
+                            <div className='row' style={{height:"7rem"}}>
                                 
                                 <div className='dayscontent'>
                                 {
@@ -135,12 +134,10 @@ async function loadCity(data:temp) {
                              
                             </div>
         
-                            <div style={{width:"100%",display:'flex',flexDirection:'column',justifyContent:'center',marginTop:"2rem",alignItems:'center',marginBottom:"1rem"}}>
-                                    <button className='delete' style={{backgroundColor:color,position:'absolute'}} onClick={()=>{setAtion()}}>{iconTrash(30,25)}</button>
+                            <div style={{width:"100%",display:'flex',flexDirection:'column',justifyContent:'center',height:"3rem",alignItems:'center',marginBottom:"1rem"}}>
+                                    <button className='delete' style={{backgroundColor:color}} onClick={()=>{setAtion(carvValue.id)}}>{iconTrash(30,25)}</button>
                             </div>
                     </div>
-                        )
-                    }
             </div>
         )
   
